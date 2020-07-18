@@ -1,87 +1,60 @@
+import 'dart:collection';
+
 import 'package:flutter/material.dart';
+import 'quote.dart';
+import 'quote_card.dart';
+void main() => runApp(MaterialApp(home: QuoteList()));
 
-void main() => runApp(MaterialApp(home: NinjaCard()));
+class QuoteList extends StatefulWidget {
+  @override
+  _QuoteListState createState() => _QuoteListState();
+}
 
-class NinjaCard extends StatelessWidget {
+class _QuoteListState extends State<QuoteList> {
+  List<Quote> quotes = [
+    Quote(text: 'Test text 1', author: 'oscar wild'),
+    Quote(text: 'Test text 2', author: 'oscar wild'),
+    Quote(text: 'Test text 3', author: 'oscar wild'),
+  ];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey[900],
+      backgroundColor: Colors.grey[200],
       appBar: AppBar(
-        title: Text('Ninja Id card'),
+        title: Text('Awesome Quotes'),
         centerTitle: true,
-        backgroundColor: Colors.grey[850],
-        elevation: 0.0,
+        backgroundColor: Colors.redAccent,
       ),
-      body: Padding(
-        padding: EdgeInsets.fromLTRB(30, 40, 40, 0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            Center(
-              child: CircleAvatar(
-                backgroundImage: AssetImage('assets/img/image.jpeg'),
-                radius: 50,
-              ),
-            ),
-            Divider(
-              height: 90,
-              color: Colors.grey[800],
-            ),
-            Text(
-              'Name',
-              style: TextStyle(
-                color: Colors.grey,
-                letterSpacing: 2,
-              ),
-            ),
-            SizedBox(height: 10.0),
-            Text(
-              'Chun-Li',
-              style: TextStyle(
-                  color: Colors.amberAccent[200],
-                  letterSpacing: 2,
-                  fontSize: 28,
-                  fontWeight: FontWeight.bold),
-            ),
-            SizedBox(height: 20.0),
-            Text(
-              'Current Ninja Level',
-              style: TextStyle(
-                color: Colors.grey,
-                letterSpacing: 2,
-              ),
-            ),
-            SizedBox(height: 10.0),
-            Text(
-              '8',
-              style: TextStyle(
-                  color: Colors.amberAccent[200],
-                  letterSpacing: 2,
-                  fontSize: 28,
-                  fontWeight: FontWeight.bold),
-            ),
-            SizedBox(height: 30.0),
-            Row(
-              children: <Widget>[
-                Icon(
-                  Icons.email,
-                  color: Colors.grey[400],
-                ),
-                SizedBox(width: 10.0),
-                Text(
-                  'Chun.li@mail.com',
-                  style: TextStyle(
-                    color: Colors.grey[400],
-                    fontSize: 18,
-                    letterSpacing: 1.0,
-                  ),
-                ),
-              ],
-            ),
+      body: Column(
+          children: [...quotes.map((quote) => QuoteCard(
+            quote: quote,
+            delete: () {
+              setState(() {
+                quotes.remove(quote);
+              });
+            }
+          )).toList(),
+          SizedBox(height: 8),
+          FlatButton.icon(
+            onPressed: () {
+              setState(() {
+                quotes = [
+                  Quote(text: 'Test text 1', author: 'oscar wild'),
+                  Quote(text: 'Test text 2', author: 'oscar wild'),
+                  Quote(text: 'Test text 3', author: 'oscar wild'),
+                ];
+              });
+            },
+            label: Text('revert items'),
+            icon: Icon(Icons.new_releases),
+          )
           ],
-        ),
-      ),
+          
+      )
     );
   }
 }
+
+
+
