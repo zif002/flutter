@@ -1,60 +1,16 @@
 import 'dart:collection';
-
 import 'package:flutter/material.dart';
-import 'quote.dart';
-import 'quote_card.dart';
-void main() => runApp(MaterialApp(home: QuoteList()));
+import 'package:flutter_tutorial/pages/home.dart';
+import 'package:flutter_tutorial/pages/loading.dart';
+import 'package:flutter_tutorial/pages/choose_location.dart';
 
-class QuoteList extends StatefulWidget {
-  @override
-  _QuoteListState createState() => _QuoteListState();
-}
+void main() => runApp(MaterialApp(
+  initialRoute: '/',
+  routes: {
+    '/': (context) => Loading(),
+    '/home': (context) => Home(),
+    '/location': (context) => ChooseLocation(),
 
-class _QuoteListState extends State<QuoteList> {
-  List<Quote> quotes = [
-    Quote(text: 'Test text 1', author: 'oscar wild'),
-    Quote(text: 'Test text 2', author: 'oscar wild'),
-    Quote(text: 'Test text 3', author: 'oscar wild'),
-  ];
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.grey[200],
-      appBar: AppBar(
-        title: Text('Awesome Quotes'),
-        centerTitle: true,
-        backgroundColor: Colors.redAccent,
-      ),
-      body: Column(
-          children: [...quotes.map((quote) => QuoteCard(
-            quote: quote,
-            delete: () {
-              setState(() {
-                quotes.remove(quote);
-              });
-            }
-          )).toList(),
-          SizedBox(height: 8),
-          FlatButton.icon(
-            onPressed: () {
-              setState(() {
-                quotes = [
-                  Quote(text: 'Test text 1', author: 'oscar wild'),
-                  Quote(text: 'Test text 2', author: 'oscar wild'),
-                  Quote(text: 'Test text 3', author: 'oscar wild'),
-                ];
-              });
-            },
-            label: Text('revert items'),
-            icon: Icon(Icons.new_releases),
-          )
-          ],
-          
-      )
-    );
   }
-}
-
-
+));
 
